@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Win64.h"
+
 using namespace DirectX;
 using Microsoft::WRL::ComPtr;
 

@@ -47,6 +47,15 @@ void Triangle::LoadPipeline()
 	mSwapChainDes.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	mSwapChainDes.SampleDesc.Count = 1;
 
+	ComPtr<IDXGISwapChain1> swapChain;
+	ThrowIfFailed(factory->CreateSwapChainForHwnd(
+		mCommandQueue.Get(),
+		GetHwnd()£¬
+
+	));
+
+
+
 
 
 }
