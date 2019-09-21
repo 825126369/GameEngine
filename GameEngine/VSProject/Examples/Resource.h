@@ -1,17 +1,17 @@
 ﻿//{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ 生成的包含文件。
-// 使用者 Sample_Triangle.rc
+// 使用者 Examples.rc
 
 #define IDS_APP_TITLE			103
 
 #define IDR_MAINFRAME			128
-#define IDD_SAMPLETRIANGLE_DIALOG	102
+#define IDD_EXAMPLES_DIALOG	102
 #define IDD_ABOUTBOX			103
 #define IDM_ABOUT				104
 #define IDM_EXIT				105
-#define IDI_SAMPLETRIANGLE			107
+#define IDI_EXAMPLES			107
 #define IDI_SMALL				108
-#define IDC_SAMPLETRIANGLE			109
+#define IDC_EXAMPLES			109
 #define IDC_MYICON				2
 #ifndef IDC_STATIC
 #define IDC_STATIC				-1

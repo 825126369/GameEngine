@@ -1,16 +1,10 @@
-//*********************************************************
-//
-// Copyright (c) Microsoft. All rights reserved.
-// This code is licensed under the MIT License (MIT).
-// THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
-// ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
-// IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
-// PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
-//
-//*********************************************************
+#ifndef DXSAMPLERHELPER_H
+#define DXSAMPLERHELPER_H
 
-#pragma once
 #include <stdexcept>
+#include <windows.h>
+#include <wrl.h>
+#include "d3dx12.h"
 
 // Note that while ComPtr is used to manage the lifetime of resources on the CPU,
 // it has no understanding of the lifetime of resources on the GPU. Apps must account
@@ -189,3 +183,5 @@ void ResetUniquePtrArray(T* uniquePtrArray)
         i.reset();
     }
 }
+
+#endif
