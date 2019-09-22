@@ -60,8 +60,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\..\Test\Shader\shaders.hlsl">
+    <CopyFileToFolders Include="..\..\Test\Shader\shaders.hlsl">
       <Filter>Shader</Filter>
-    </FxCompile>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>
