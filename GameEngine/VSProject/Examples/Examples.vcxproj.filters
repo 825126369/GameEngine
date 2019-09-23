@@ -41,6 +41,12 @@
     <ClCompile Include="..\..\Test\Common\Win32Application.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Test\TextureManager.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\Texture.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Test\D3D12HelloTriangle.h">
@@ -57,6 +63,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Test\Common\Win32Application.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\TextureManager.h">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\Texture.h">
+      <Filter>Src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
