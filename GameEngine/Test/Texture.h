@@ -2,6 +2,7 @@
 #define TEXTURE_H
 
 #include <stdint.h>
+#include <string>
 typedef unsigned char BYTE;
 
 class Texture
