@@ -1,9 +1,9 @@
 #ifndef D3D12HELLOTEXTURE_H
 #define D3D12HELLOTEXTURE_H
 
+#include <initguid.h>
 #include "Common/d3dx12.h"
 #include "Common/DXSample.h"
-#include <d3d12.h>
 #include <dxgi1_4.h>
 #include <D3Dcompiler.h>
 #include <DirectXMath.h>

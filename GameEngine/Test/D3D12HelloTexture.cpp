@@ -1,4 +1,3 @@
-
 #include "D3D12HelloTexture.h"
 
 D3D12HelloTexture::D3D12HelloTexture(UINT width, UINT height, std::wstring name) :
