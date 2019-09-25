@@ -14,11 +14,11 @@ public:
 	TextureManager();
 	~TextureManager();
 
-	Texture* LoadTexture(std::string lpszPathName, int flag);
-	Texture* GetTexture(std::string lpszPathName);
+	Texture* LoadTexture(std::wstring lpszPathName, int flag);
+	Texture* GetTexture(std::wstring lpszPathName);
 
 private:
-	std::map<std::string, Texture> mTextureDic;
+	std::map<std::wstring, Texture*> mTextureDic;
 };
 
 #endif // !FREEIMAGEMANAGER_H

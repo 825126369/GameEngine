@@ -8,20 +8,17 @@ typedef unsigned char BYTE;
 class Texture
 {
 public:
-	Texture();
+	Texture(BYTE* data, uint32_t width, uint32_t height, uint32_t nPitch, uint32_t nLineCount, uint32_t nSize, uint32_t nBPP);
 	~Texture();
 	
-	void SetData(BYTE* data, int32_t Length);
-	int32_t GetData(BYTE* data);
-	void SetWidthHeight(int32_t width, int32_t height);
-	void GetWidthHeight(int32_t& width, int32_t& height);
-
-private:
 	BYTE* data = nullptr;
-	int32_t dataLength = 0;
 
 	int32_t width;
 	int32_t height;
+	uint32_t nPitch;
+	uint32_t nSize;
+	uint32_t nLineCount;
+	uint32_t nBPP;
 
 	std::string  name;
 };

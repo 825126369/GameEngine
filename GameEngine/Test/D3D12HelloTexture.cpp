@@ -1,4 +1,5 @@
 #include "D3D12HelloTexture.h"
+#include "TextureManager.h"
 
 D3D12HelloTexture::D3D12HelloTexture(UINT width, UINT height, std::wstring name) :
 	DXSample(width, height, name),
@@ -7,6 +8,7 @@ D3D12HelloTexture::D3D12HelloTexture(UINT width, UINT height, std::wstring name)
 	m_scissorRect(0, 0, static_cast<LONG>(width), static_cast<LONG>(height)),
 	m_rtvDescriptorSize(0)
 {
+	
 }
 
 void D3D12HelloTexture::OnInit()
@@ -196,6 +198,21 @@ void D3D12HelloTexture::LoadAssets()
 			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
 		};
 
+		CD3DX12_BLEND_DESC mBlendInfo = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
+		const D3D12_RENDER_TARGET_BLEND_DESC defaultRenderTargetBlendDesc =
+		{
+			true, FALSE,
+			D3D12_BLEND_ONE, D3D12_BLEND_ONE, D3D12_BLEND_OP_ADD,
+			D3D12_BLEND_ONE, D3D12_BLEND_ONE, D3D12_BLEND_OP_ADD,
+			D3D12_LOGIC_OP_NOOP,
+			D3D12_COLOR_WRITE_ENABLE_ALL,
+		};
+
+		for (UINT i = 0; i < D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT; ++i)
+			mBlendInfo.RenderTarget[i] = defaultRenderTargetBlendDesc;
+
+		//mBlendInfo.AlphaToCoverageEnable = true;
+
 		// Describe and create the graphics pipeline state object (PSO).
 		D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc = {};
 		psoDesc.InputLayout = { inputElementDescs, _countof(inputElementDescs) };
@@ -203,7 +220,7 @@ void D3D12HelloTexture::LoadAssets()
 		psoDesc.VS = CD3DX12_SHADER_BYTECODE(vertexShader.Get());
 		psoDesc.PS = CD3DX12_SHADER_BYTECODE(pixelShader.Get());
 		psoDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
-		psoDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
+		psoDesc.BlendState = mBlendInfo;
 		psoDesc.DepthStencilState.DepthEnable = FALSE;
 		psoDesc.DepthStencilState.StencilEnable = FALSE;
 		psoDesc.SampleMask = UINT_MAX;
@@ -222,9 +239,12 @@ void D3D12HelloTexture::LoadAssets()
 		// Define the geometry for a triangle.
 		Vertex triangleVertices[] =
 		{
-			{ { 0.0f, 0.25f * m_aspectRatio, 0.0f }, { 0.5f, 0.0f } },
-			{ { 0.25f, -0.25f * m_aspectRatio, 0.0f }, { 1.0f, 1.0f } },
-			{ { -0.25f, -0.25f * m_aspectRatio, 0.0f }, { 0.0f, 1.0f } }
+			{ { -0.25f, 0.25f * m_aspectRatio, 0.0f }, { 0.0f, 1.0f } },
+			{ { 0.25f, 0.25f * m_aspectRatio, 0.0f }, { 1.0f, 1.0f } },
+			{ { 0.25f, -0.25f * m_aspectRatio, 0.0f }, { 1.0f, 0.0f } },
+			{ { -0.25f, -0.25f * m_aspectRatio, 0.0f }, { 0.0f, 0.0f } },
+			{ { -0.25f, 0.25f * m_aspectRatio, 0.0f }, { 0.0f, 1.0f } },
+			{ { 0.25f, -0.25f * m_aspectRatio, 0.0f }, { 1.0f, 0.0f } }
 		};
 
 		const UINT vertexBufferSize = sizeof(triangleVertices);
@@ -262,12 +282,24 @@ void D3D12HelloTexture::LoadAssets()
 
 	// Create the texture.
 	{
+		std::wstring path = GetAssetFullPath(L"Ocean10.png");
+		Texture* mTexture = mTextureManger.LoadTexture(path, 0);
+		assert(mTexture, "mTexture is Null");
+
+		UINT32 Width = mTexture->width;
+		int Height = mTexture->height;
+		UINT8* mTextureData = mTexture->data;
+		UINT32 nPitch = mTexture->nPitch;
+		UINT32 nLineCount = mTexture->nLineCount;
+		UINT32 nSize = mTexture->nSize;
+		UINT32 nBPP = mTexture->nBPP / 8;
+
 		// Describe and create a Texture2D.
 		D3D12_RESOURCE_DESC textureDesc = {};
 		textureDesc.MipLevels = 1;
 		textureDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-		textureDesc.Width = TextureWidth;
-		textureDesc.Height = TextureHeight;
+		textureDesc.Width = Width;
+		textureDesc.Height = Height;
 		textureDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
 		textureDesc.DepthOrArraySize = 1;
 		textureDesc.SampleDesc.Count = 1;
@@ -293,14 +325,11 @@ void D3D12HelloTexture::LoadAssets()
 			nullptr,
 			IID_PPV_ARGS(&textureUploadHeap)));
 
-		// Copy data to the intermediate upload heap and then schedule a copy 
-		// from the upload heap to the Texture2D.
-		std::vector<UINT8> texture = GenerateTextureData();
 
 		D3D12_SUBRESOURCE_DATA textureData = {};
-		textureData.pData = &texture[0];
-		textureData.RowPitch = TextureWidth * TexturePixelSize;
-		textureData.SlicePitch = textureData.RowPitch * TextureHeight;
+		textureData.pData = mTextureData;
+		textureData.RowPitch = nPitch;
+		textureData.SlicePitch = textureData.RowPitch * Height;
 
 		UpdateSubresources(m_commandList.Get(), m_texture.Get(), textureUploadHeap.Get(), 0, 0, 1, &textureData);
 		m_commandList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(m_texture.Get(), D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE));
@@ -336,43 +365,6 @@ void D3D12HelloTexture::LoadAssets()
 		// complete before continuing.
 		WaitForPreviousFrame();
 	}
-}
-
-// Generate a simple black and white checkerboard texture.
-std::vector<UINT8> D3D12HelloTexture::GenerateTextureData()
-{
-	const UINT rowPitch = TextureWidth * TexturePixelSize;
-	const UINT cellPitch = rowPitch >> 3;        // The width of a cell in the checkboard texture.
-	const UINT cellHeight = TextureWidth >> 3;    // The height of a cell in the checkerboard texture.
-	const UINT textureSize = rowPitch * TextureHeight;
-
-	std::vector<UINT8> data(textureSize);
-	UINT8* pData = &data[0];
-
-	for (UINT n = 0; n < textureSize; n += TexturePixelSize)
-	{
-		UINT x = n % rowPitch;
-		UINT y = n / rowPitch;
-		UINT i = x / cellPitch;
-		UINT j = y / cellHeight;
-
-		if (i % 2 == j % 2)
-		{
-			pData[n] = 0x00;        // R
-			pData[n + 1] = 0x00;    // G
-			pData[n + 2] = 0x00;    // B
-			pData[n + 3] = 0xff;    // A
-		}
-		else
-		{
-			pData[n] = 0xff;        // R
-			pData[n + 1] = 0xff;    // G
-			pData[n + 2] = 0xff;    // B
-			pData[n + 3] = 0xff;    // A
-		}
-	}
-
-	return data;
 }
 
 // Update frame-based values.
@@ -438,7 +430,7 @@ void D3D12HelloTexture::PopulateCommandList()
 	m_commandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
 	m_commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	m_commandList->IASetVertexBuffers(0, 1, &m_vertexBufferView);
-	m_commandList->DrawInstanced(3, 1, 0, 0);
+	m_commandList->DrawInstanced(6, 1, 0, 0);
 
 	// Indicate that the back buffer will now be used to present.
 	m_commandList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(m_renderTargets[m_frameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT));

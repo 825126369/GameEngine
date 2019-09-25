@@ -13,6 +13,8 @@
 #include <wrl.h>
 #include <shellapi.h>
 
+#include "TextureManager.h"
+
 using namespace DirectX;
 using Microsoft::WRL::ComPtr;
 
@@ -28,9 +30,6 @@ public:
 
 private:
     static const UINT FrameCount = 2;
-    static const UINT TextureWidth = 256;
-    static const UINT TextureHeight = 256;
-    static const UINT TexturePixelSize = 4;    // The number of bytes used to represent a pixel in the texture.
 
     struct Vertex
     {
@@ -69,6 +68,8 @@ private:
     std::vector<UINT8> GenerateTextureData();
     void PopulateCommandList();
     void WaitForPreviousFrame();
+
+	TextureManager mTextureManger;
 };
 
 #endif // !D3D12HELLOTEXTURE_H

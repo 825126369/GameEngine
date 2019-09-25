@@ -14,6 +14,9 @@
     <Filter Include="Common">
       <UniqueIdentifier>{62ae77b0-cca9-4071-9edb-6f8caf40692e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Texture">
+      <UniqueIdentifier>{41bcc053-e3ca-4d82-919a-cb55abe08c54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Test\Common\DXSample.cpp">
@@ -67,6 +70,21 @@
   <ItemGroup>
     <CopyFileToFolders Include="..\..\Test\Shader\shaders.hlsl">
       <Filter>Shader</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\..\Texture\Ocean10.png">
+      <Filter>Texture</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\..\Texture\OceanA.png">
+      <Filter>Texture</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\..\Texture\OceanJ.png">
+      <Filter>Texture</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\..\Texture\OceanK.png">
+      <Filter>Texture</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\..\Texture\OceanQ.png">
+      <Filter>Texture</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

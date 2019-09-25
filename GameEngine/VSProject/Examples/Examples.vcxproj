@@ -177,6 +177,13 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir);%(Outputs)</Outputs>
     </CopyFileToFolders>
   </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\..\Texture\Ocean10.png" />
+    <CopyFileToFolders Include="..\..\Texture\OceanA.png" />
+    <CopyFileToFolders Include="..\..\Texture\OceanJ.png" />
+    <CopyFileToFolders Include="..\..\Texture\OceanK.png" />
+    <CopyFileToFolders Include="..\..\Texture\OceanQ.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
