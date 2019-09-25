@@ -102,13 +102,17 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\Work\GameEngine\GameEngine\Plugin\TextureImport\FreeImage;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Work\GameEngine\GameEngine\Plugin\TextureImport\FreeImage;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DelayLoadDLLs>
+      </DelayLoadDLLs>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -148,16 +152,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ResourceCompile Include="Examples.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Examples.ico" />
-    <Image Include="small.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\..\Test\Common\DXSample.cpp" />
     <ClCompile Include="..\..\Test\Common\Main.cpp" />
     <ClCompile Include="..\..\Test\Common\Win32Application.cpp" />
+    <ClCompile Include="..\..\Test\D3D12HelloTexture.cpp" />
     <ClCompile Include="..\..\Test\D3D12HelloTriangle.cpp" />
     <ClCompile Include="..\..\Test\Texture.cpp" />
     <ClCompile Include="..\..\Test\TextureManager.cpp" />
@@ -167,6 +165,7 @@
     <ClInclude Include="..\..\Test\Common\DXSample.h" />
     <ClInclude Include="..\..\Test\Common\DXSampleHelper.h" />
     <ClInclude Include="..\..\Test\Common\Win32Application.h" />
+    <ClInclude Include="..\..\Test\D3D12HelloTexture.h" />
     <ClInclude Include="..\..\Test\D3D12HelloTriangle.h" />
     <ClInclude Include="..\..\Test\Texture.h" />
     <ClInclude Include="..\..\Test\TextureManager.h" />

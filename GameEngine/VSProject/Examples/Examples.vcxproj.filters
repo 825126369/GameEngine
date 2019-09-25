@@ -16,22 +16,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Examples.rc">
-      <Filter>Resoures</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="small.ico">
-      <Filter>Resoures</Filter>
-    </Image>
-    <Image Include="Examples.ico">
-      <Filter>Resoures</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\Test\D3D12HelloTriangle.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Test\Common\DXSample.cpp">
       <Filter>Common</Filter>
     </ClCompile>
@@ -47,11 +31,14 @@
     <ClCompile Include="..\..\Test\Texture.cpp">
       <Filter>Src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Test\D3D12HelloTriangle.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Test\D3D12HelloTexture.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Test\D3D12HelloTriangle.h">
-      <Filter>Src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Test\Common\d3dx12.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -68,6 +55,12 @@
       <Filter>Src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Test\Texture.h">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\D3D12HelloTexture.h">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Test\D3D12HelloTriangle.h">
       <Filter>Src</Filter>
     </ClInclude>
   </ItemGroup>
